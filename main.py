@@ -91,3 +91,52 @@ matrix, sum_row7, row_89, max_row6 = process_and_query_matrix()
 print("Sum of collum 8:", sum_row7)
 print("Row of value 89:", row_89)
 print("Max value in row 7:", max_row6)
+
+
+
+#Q3
+class Product:
+    def __init__(self, name, price, on_sell):
+        self.name = name
+        self.price = price
+        self.on_sell = on_sell
+
+    def __str__(self):
+        if self.on_sell:
+            sell = "The product is on sell!"
+        else:
+            sell = "The product is not on sell!"
+        return f"Product name: {self.name}, Price: {self.price}, {sell}"
+
+    def get_price(self):
+        return self.price
+
+    def get_name(self):
+        return self.name
+
+    def check_if_on_sell(self):
+        return self.on_sell
+
+    def set_price(self, price):
+        if price > 0:
+            self.price = price
+            return "Price updated!"
+        return "Price not updated!, Please use only positive numbers."
+
+    def set_name(self, name):
+        if name != "":
+            self.name = name
+            return "Name updated!"
+        return "Name not updated!, Name can't be empty!"
+
+    def make_discount(self):
+        if not self.on_sell:
+            self.on_sell = True
+            return "The product is now on sell"
+        return "The product is already on sell!"
+
+    def no_discount(self):
+        if self.on_sell:
+            self.on_sell = False
+            return "The product is no longer on sell"
+        return "The product is not on sell already"
