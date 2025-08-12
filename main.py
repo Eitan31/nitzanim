@@ -140,3 +140,71 @@ class Product:
             self.on_sell = False
             return "The product is no longer on sell"
         return "The product is not on sell already"
+
+#Q4
+
+
+BUDGET = 80000
+PAINTINGS = [
+['Mona Lisa', 5341, 67],
+['Starry night', 8908, 27],
+['A girl with a pearl earring', 5914, 13],
+['This Kiss', 3922, 20],
+['Las Meninas', 5046, 61],
+['birth of venus', 5576, 44],
+['Guernica', 5627, 43],
+['Arrangement in gray and black', 6680, 46],
+['the night watch', 4361, 75],
+['The Last Supper', 4907, 13],
+['Sunrise impression', 3580, 68],
+['Freedom leads the people', 5657, 20],
+['The gypsy woman', 3862, 60],
+['The sailors\' feast', 5332, 27],
+['Night hawks', 4420, 44],
+['The jellyfish raft', 7026, 71],
+['the swing', 9594, 73],
+['June flames', 9340, 69],
+['son of man', 9847, 38],
+['A storm in the Sea of Galilee', 7555, 56]
+]
+
+
+
+def q4a(paintings, budget, index=0):
+    if index == len(paintings) or budget<= 0:
+        return  0, []
+
+    name, price, people = paintings[index]
+
+    not_taking, not_list = q4a(paintings, budget, index + 1)
+
+    take, take_list = 0, []
+    if price <= budget:
+        take, take_list = q4a(paintings, budget - price, index + 1)
+        take += people
+
+    if take > not_taking:
+        return take, [name] + take_list
+    return not_taking, not_list
+
+
+max_people, chosen_list = q4a(PAINTINGS, BUDGET)
+
+print("Max people:", max_people)
+print("paintings:")
+for painting in chosen_list:
+    print("-", painting)
+
+def q4b():
+    return sum(p[2] for p in PAINTINGS)
+print(q4b())
+
+def q4c(paintings, names):
+    total = 0
+    for name in names:
+        for paint in paintings:
+            if name == paint[0]:
+                total += paint[1]
+                break
+    return BUDGET - total
+print(q4c(PAINTINGS, chosen_list))
